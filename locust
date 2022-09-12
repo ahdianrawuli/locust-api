@@ -1,0 +1,6 @@
+## set 50 worker, kalau spec server minim, pakai nproc
+for i in {1..50}; do /bin/bash /opt/locust-api/worker ;done
+
+/usr/local/bin/locust -f /opt/locust-api/execute_payload.py --master --master-bind-host=127.0.0.1 --master-bind-port=65001 --enable-rebalancing --host $1 -u $4 -r $5 -t $6 --autostart --autoquit 5 --only-summary --html /opt/locust-api/report/$3_$2.html
+
+mysql -uroot -prawuli1234 locust -e "update data set complete=1 where queue_id=$3 and project='$2'";
